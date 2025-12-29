@@ -1,51 +1,113 @@
 # AI Proxy
 
-This is a simple proxy for AI services.
+这是一个简单的 AI 服务代理。
 
-## Sponsorship
+## 赞助商
 
-This project is sponsored by [ChatWise](https://chatwise.app), the fastest AI chatbot that works for any LLM.
+本项目由 [ChatWise](https://chatwise.app) 赞助，ChatWise 是一款支持任何 LLM 的极速 AI 聊天机器人。
 
-## Usage
+## 使用方法
 
-Replace your API domain with the domain of the proxy deployed on your server. For example:
+将您的 API 域名替换为部署在您服务器上的代理域名。例如：
 
-- Gemini:
-  - from `https://generativelanguage.googleapis.com/v1beta` 
-  - to`https://your-proxy/generativelanguage/v1beta`
-- OpenAI:
-  - from `https://api.openai.com/v1`
-  - to `https://your-proxy/openai/v1`
-- Anthropic:
-  - from `https://api.anthropic.com/v1`
-  - to `https://your-proxy/anthropic/v1`
-- Groq:
-  - from `https://api.groq.com/openai/v1`
-  - to `https://your-proxy/groq/openai/v1`
-- Perplexity:
-  - from `https://api.perplexity.ai`
-  - to `https://your-proxy/pplx`
-- Mistral:
-  - from `https://api.mistral.ai`
-  - to `https://your-proxy/mistral`
-- OpenRouter:
-  - from `https://openrouter.ai/api`
-  - to `https://your-proxy/openrouter`
-- xAI:
-  - from `https://api.xai.ai`
-  - to `https://your-proxy/xai`
-- Cerebras:
-  - from `https://api.cerebras.ai`
-  - to `https://your-proxy/cerebras`
- 
-## Hosted by ChatWise
+- Gemini：
+  - 原地址：`https://generativelanguage.googleapis.com/v1beta`
+  - 代理地址：`https://your-proxy/generativelanguage/v1beta`
+- OpenAI：
+  - 原地址：`https://api.openai.com/v1`
+  - 代理地址：`https://your-proxy/openai/v1`
+- Anthropic：
+  - 原地址：`https://api.anthropic.com/v1`
+  - 代理地址：`https://your-proxy/anthropic/v1`
+- Groq：
+  - 原地址：`https://api.groq.com/openai/v1`
+  - 代理地址：`https://your-proxy/groq/openai/v1`
+- Perplexity：
+  - 原地址：`https://api.perplexity.ai`
+  - 代理地址：`https://your-proxy/pplx`
+- Mistral：
+  - 原地址：`https://api.mistral.ai`
+  - 代理地址：`https://your-proxy/mistral`
+- OpenRouter：
+  - 原地址：`https://openrouter.ai/api`
+  - 代理地址：`https://your-proxy/openrouter`
+- xAI：
+  - 原地址：`https://api.xai.ai`
+  - 代理地址：`https://your-proxy/xai`
+- Cerebras：
+  - 原地址：`https://api.cerebras.ai`
+  - 代理地址：`https://your-proxy/cerebras`
 
-Use the hosted API, for example OpenAI `https://ai-proxy.chatwise.app/openai/v1`
+## ChatWise 托管服务
 
-## Deployment
+使用我们托管的 API，例如 OpenAI：`https://ai-proxy.chatwise.app/openai/v1`
 
-Deploy this as a Docker container, check out [Dockerfile](./Dockerfile).
+## 部署
 
-## License
+### Docker 安装
+
+#### 方式一：使用 Docker Hub 镜像
+
+```bash
+# 拉取镜像
+docker pull hypered1/ai-proxy:latest
+
+# 运行容器
+docker run -d \
+  --name ai-proxy \
+  -p 3000:3000 \
+  --restart unless-stopped \
+  hypered1/ai-proxy:latest
+```
+
+#### 方式二：从源码构建
+
+```bash
+# 克隆仓库
+git clone https://github.com/hypered/ai-proxy.git
+cd ai-proxy
+
+# 构建镜像
+docker build -t ai-proxy .
+
+# 运行容器
+docker run -d \
+  --name ai-proxy \
+  -p 3000:3000 \
+  --restart unless-stopped \
+  ai-proxy
+```
+
+#### Docker Compose
+
+创建 `docker-compose.yml` 文件：
+
+```yaml
+version: '3.8'
+
+services:
+  ai-proxy:
+    image: hypered1/ai-proxy:latest
+    # 或使用本地构建：build: .
+    container_name: ai-proxy
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+```
+
+然后运行：
+
+```bash
+docker-compose up -d
+```
+
+### 配置说明
+
+- 默认端口：`3000`
+- 可通过环境变量 `PORT` 自定义端口
+
+## 许可证
 
 MIT.
